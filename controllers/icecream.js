@@ -31,3 +31,16 @@ exports.icecream_list = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
    };
+
+   // VIEWS
+// Handle a show all view
+exports.icecream_view_all_Page = async function(req, res) {
+    try{
+    theCostumes = await Costume.find();
+    res.render('icecream', { title: 'icecream Search Results', results: theCostumes });
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+   };
