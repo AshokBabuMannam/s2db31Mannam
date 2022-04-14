@@ -3,12 +3,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require("mongoose");
+const connectionString =  process.env.MONGO_CON;
+console.log(connectionString);
+mongoose.connect(connectionString,{useNewUrlParser: true,useUnifiedTopology: true});
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var icecreamRouter = require('./routes/icecream');
 var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
+var resourceRouter = require('./routes/resource');
+var icecream = require("./models/icecream");
 
 
 
@@ -30,6 +37,8 @@ app.use('/users', usersRouter);
 app.use('/icecream', icecreamRouter);
 app.use('/addmods', addmodsRouter);
 app.use('/selector', selectorRouter);
+app.use('/resource', resourceRouter);
+app.use('/icecream', icecreamRouter);
 
 
 
@@ -52,3 +61,26 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+// We can seed the collection if needed on server start
+async function recreateDB(){
+ // Delete everything
+ await icecream.deleteMany();
+ let instance1 = new icecream({flavor:"Vanella", price:12, quantity:'25.4'});
+ let instance2 = new icecream({flavor:"Mango", price:13, quantity:'25.4'});
+ let instance3 = new icecream({flavor:"Strawberry", price:14, quantity:'25.4'});
+ instance1.save( function(err,doc) {
+ if(err) return console.error(err);
+ console.log("First object saved")
+ });
+ instance2.save( function(err,doc) {
+  if(err) return console.error(err);
+  console.log("Second object saved")
+  });
+  instance3.save( function(err,doc) {
+    if(err) return console.error(err);
+    console.log("Third object saved")
+    });
+}
+let reseed = true;
+if (reseed) { recreateDB();}
