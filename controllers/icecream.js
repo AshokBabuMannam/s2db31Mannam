@@ -36,8 +36,8 @@ exports.icecream_list = async function(req, res) {
 // Handle a show all view
 exports.icecream_view_all_Page = async function(req, res) {
     try{
-    theCostumes = await Costume.find();
-    res.render('icecream', { title: 'icecream Search Results', results: theCostumes });
+    theicecreams = await icecream.find();
+    res.render('icecream', { title: 'icecream Search Results', results: theicecreams });
     }
     catch(err){
     res.status(500);
