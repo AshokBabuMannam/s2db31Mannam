@@ -19,3 +19,15 @@ exports.icecream_delete = function(req, res) {
 exports.icecream_update_put = function(req, res) {
  res.send('NOT IMPLEMENTED: icecream update PUT' + req.params.id);
 };
+
+// List of all Costumes
+exports.icecream_list = async function(req, res) {
+    try{
+    theicecreams = await icecream.find();
+    res.send(theicecreams);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+   };
