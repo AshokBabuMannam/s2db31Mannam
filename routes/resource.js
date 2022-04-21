@@ -7,6 +7,15 @@ var icecream_controller = require('../controllers/icecream');
 // GET resources base.
 router.get('/', api_controller.api);
 /// COSTUME ROUTES ///
+router.get('/detail', icecream_controller.icecream_view_one_Page); 
+
+router.get('/create', icecream_controller.icecream_create_Page); 
+
+router.get('/update', icecream_controller.icecream_update_Page); 
+
+router.get('/delete', icecream_controller.icecream_delete_Page); 
+ 
+
 // POST request for creating a Costume.
 router.post('/icecream', icecream_controller.icecream_create_post);
 // DELETE request to delete Costume.
