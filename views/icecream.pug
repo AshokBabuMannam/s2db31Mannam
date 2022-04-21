@@ -1,33 +1,25 @@
 extends layout
+
 block content
   h1= title
-  p Welcome to the icecream 
-  div(class="container-fluid")
-        div(class="row")
-            -
-                let icecream = [
-                    {
-                        "flavor": "Vanila",
-                        "price": 11,
-                        "quantity": "1"
-                    },
-                    {
-                        "flavor": "Butter",
-                        "price": 10,
-                        "quantity": "2"
-                    },
-                    {
-                        "flavor": "Sirachi",
-                        "price": 15,
-                        "quantity": "3"
-                    },                   
-                ]
-            each v,index in icecream
-                div(class="col-sm-2" onclick=`buy(${index})`) #{v.flavor}
-                div(class="col-sm-2" onclick=`buy(${index})`) #{v.price}
-                div(class="col-sm-2" onclick=`buy(${index})`) #{v.quantity}
-  script.                
-        function buy(intemNo)
-        {
-              alert(`you purchased icecream ${intemNo+1}`)
-        }
+  - let items = results
+   div(class = "container-fluid")
+    div(class = "row m-1")
+     each item in items  
+      - let destination = `dispatch(\"/icecream/update?id=${item._id}\")`
+      //- let destination1 = `dispatch(\"/Season/create\")`
+      //- let destination2 = `dispatch(\"/Season/detail?id=${item._id}\")`
+      //- let destination3 = `dispatch(\"/Season/delete?id=${item._id}\")`
+      div(class="row-sm-2", class="m-1") icecream: #{item.flavor}(#{item.price}) is #{item.quantity}  
+        button.btn( class="btn-primary ml-1", onclick= destination, style = "margin:8px;") Update
+        //-button.btn( class="btn-primary ml-1", onclick= destination1, style = "margin:8px;" ) Create
+        //-button.btn( class="btn-primary ml-1", onclick= destination2, style = "margin:8px;" ) Detail
+        //-button.btn( class="btn-primary ml-1", onclick= destination3, style = "margin:8px;" ) Delete
+  script.
+    function buy(itemNo){
+        alert(`You purchased item ${itemNo+1}`)
+    }
+  script. 
+    function dispatch(path){ 
+        window.location.href=path 
+    } 
