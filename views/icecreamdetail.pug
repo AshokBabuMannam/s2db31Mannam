@@ -1,0 +1,24 @@
+extends layout 
+ 
+block content 
+  h1= title
+  if (toShow == null) 
+    h2 No instance to delete 
+  else
+  - let icecreamid = toShow._id 
+  - let iflavor = toShow.flavor  
+  - let iprice = toShow.price 
+  - let iquantity = toShow.quantity
+  div 
+    div.row 
+      div(class='iceAttr mr-3') IceCream ID is: 
+      div #{icecreamid} 
+    div.row 
+      div(class='iceAttr mr-3') Flavor is: 
+      div(class='iceIAttr') #{iflavor} 
+    div.row 
+      div(class='iceAttr mr-3') Price is: 
+      div(class='iceIAttr') #{iprice} 
+    div.row 
+      div(class='iceAttr mr-3') Quantity is: 
+      div(class='iceIAttr') #{iquantity} 
