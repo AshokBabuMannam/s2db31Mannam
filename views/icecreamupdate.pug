@@ -1,0 +1,45 @@
+extends layout 
+ 
+block content 
+  h1= title
+  if (toShow == null) 
+    h2 No instance to delete 
+  else
+  - let icecreamid = toShow._id 
+  - let iflavor = toShow.flavor  
+  - let iprice = toShow.price 
+  - let iquantity = toShow.quantity
+   
+  div.row(class='mb-2') 
+    div.mr-1 ID is 
+    div #{icecreamid} 
+  - let actionid = "/resource/icecream/" + icecreamid 
+  form(id='CostumeForm', action= actionid, method="PUT") 
+    div.form-group 
+        label.iceAttr(for='flavor') Flavor  
+        input#flavor(type='text', name='flavor', value= iflavor) 
+    div.form-group 
+        label.iceAttr(for='price') Price  
+        input#size(type='number', name='price', value= iprice) 
+    div.form-group 
+        label.iceAttr(for='quantity') Quantity
+        input#cost(type='text', name='quiantity', value= iquantity) 
+    input(type="submit") 
+ 
+  script. 
+    document.forms['CostumeForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'PUT', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Update succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Update failed " + error ) 
+      }); 
+    }); 
