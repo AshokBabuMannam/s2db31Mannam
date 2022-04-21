@@ -96,3 +96,63 @@ ${JSON.stringify(req.body)}`)
 failed`); 
     } 
 }; 
+
+exports.icecream_delete = async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await icecream.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
+}; 
+
+exports.icecream_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await icecream.findById( req.query.id) 
+        res.render('icecreamdetail',  
+{ title: 'Icecream Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+exports.icecream_create_Page =  function(req, res) { 
+    console.log("create view") 
+    try{ 
+        res.render('icecreamcreate', { title: 'Icecream Create'}); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+
+exports.icecream_update_Page =  async function(req, res) { 
+    console.log("update view for item "+req.query.id) 
+    try{ 
+        let result = await icecream.findById(req.query.id) 
+        res.render('icecreamupdate', { title: 'Icecream Update', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
+exports.icecream_delete_Page = async function(req, res) { 
+    console.log("Delete view for id "  + req.query.id) 
+    try{ 
+        result = await icecream.findById(req.query.id) 
+        res.render('icecreamdelete', { title: 'Icecream Delete', toShow: 
+result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
