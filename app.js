@@ -47,6 +47,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(require('express-session')({ 
   secret: 'keyboard cat', 
   resave: false, 
@@ -54,6 +55,7 @@ app.use(require('express-session')({
 })); 
 app.use(passport.initialize()); 
 app.use(passport.session());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -64,17 +66,11 @@ app.use('/selector', selectorRouter);
 app.use('/resource', resourceRouter);
 app.use('/icecream', icecreamRouter);
 
-// passport config 
-// Use the existing connection 
-// The Account model  
-var Account =require('./models/account'); 
- 
+
+var Account =require('./models/account');
 passport.use(new LocalStrategy(Account.authenticate())); 
 passport.serializeUser(Account.serializeUser()); 
 passport.deserializeUser(Account.deserializeUser()); 
- 
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

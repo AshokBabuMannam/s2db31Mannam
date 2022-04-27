@@ -1,19 +1,15 @@
 var express = require('express');
 var router = express.Router();
+
+
+
 // Require controller modules.
 var api_controller = require('../controllers/api');
 var icecream_controller = require('../controllers/icecream');
 /// API ROUTE ///
 // GET resources base.
 router.get('/', api_controller.api);
-/// COSTUME ROUTES ///
-router.get('/detail', icecream_controller.icecream_view_one_Page); 
-
-router.get('/create', icecream_controller.icecream_create_Page); 
-
-router.get('/update', icecream_controller.icecream_update_Page); 
-
-router.get('/delete', icecream_controller.icecream_delete_Page); 
+ 
  
 
 // POST request for creating a Costume.
